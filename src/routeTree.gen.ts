@@ -10,33 +10,63 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as MuseumRouteImport } from './routes/museum'
+import { Route as PlayRouteImport } from './routes/play'
+import { Route as ChallengeSlugRouteImport } from './routes/challenge.$slug'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const MuseumRoute = MuseumRouteImport.update({
+  id: '/museum',
+  path: '/museum',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PlayRoute = PlayRouteImport.update({
+  id: '/play',
+  path: '/play',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ChallengeSlugRoute = ChallengeSlugRouteImport.update({
+  id: '/challenge/$slug',
+  path: '/challenge/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/museum': typeof MuseumRoute
+  '/play': typeof PlayRoute
+  '/challenge/$slug': typeof ChallengeSlugRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/museum': typeof MuseumRoute
+  '/play': typeof PlayRoute
+  '/challenge/$slug': typeof ChallengeSlugRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/museum': typeof MuseumRoute
+  '/play': typeof PlayRoute
+  '/challenge/$slug': typeof ChallengeSlugRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths: '/' | '/museum' | '/play' | '/challenge/$slug'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to: '/' | '/museum' | '/play' | '/challenge/$slug'
+  id: '__root__' | '/' | '/museum' | '/play' | '/challenge/$slug'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  MuseumRoute: typeof MuseumRoute
+  PlayRoute: typeof PlayRoute
+  ChallengeSlugRoute: typeof ChallengeSlugRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +78,35 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/museum': {
+      id: '/museum'
+      path: '/museum'
+      fullPath: '/museum'
+      preLoaderRoute: typeof MuseumRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/play': {
+      id: '/play'
+      path: '/play'
+      fullPath: '/play'
+      preLoaderRoute: typeof PlayRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/challenge/$slug': {
+      id: '/challenge/$slug'
+      path: '/challenge/$slug'
+      fullPath: '/challenge/$slug'
+      preLoaderRoute: typeof ChallengeSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  MuseumRoute: MuseumRoute,
+  PlayRoute: PlayRoute,
+  ChallengeSlugRoute: ChallengeSlugRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

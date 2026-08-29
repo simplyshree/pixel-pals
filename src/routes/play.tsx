@@ -3,12 +3,12 @@ import { useState } from "react";
 import { GameScreen } from "@/components/doodle/GameScreen";
 import { PROMPTS, dailyPrompt, randomFrom } from "@/lib/doodle/data";
 
-type Search = { p?: string; daily?: boolean };
+type Search = { p: string | undefined; daily: boolean };
 
 export const Route = createFileRoute("/play")({
   validateSearch: (search: Record<string, unknown>): Search => ({
-    p: typeof search.p === "string" ? search.p : undefined,
-    daily: search.daily === true || search.daily === "true",
+    p: typeof search["p"] === "string" ? (search["p"] as string) : undefined,
+    daily: search["daily"] === true || search["daily"] === "true",
   }),
   head: () => ({
     meta: [

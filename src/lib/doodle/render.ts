@@ -27,7 +27,7 @@ export function drawPixelsToCanvas(
 /** Renders a pretty share card and returns a data URL. */
 export function makeShareCard(d: Doodle): string {
   const W = 800;
-  const H = 1000;
+  const H = 1080;
   const canvas = document.createElement("canvas");
   canvas.width = W;
   canvas.height = H;
@@ -68,14 +68,14 @@ export function makeShareCard(d: Doodle): string {
 
   ctx.font = "26px 'Nunito', system-ui, sans-serif";
   ctx.fillStyle = "#6b5f76";
-  ctx.fillText(`made in ${d.seconds} seconds`, W / 2, y + box + 135);
+  ctx.fillText(`made in ${d.seconds} second${d.seconds === 1 ? "" : "s"}`, W / 2, y + box + 135);
 
   ctx.font = "bold 30px 'Baloo 2', system-ui, sans-serif";
   ctx.fillStyle = "#e05780";
-  ctx.fillText("can you do better?", W / 2, H - 90);
+  ctx.fillText("can you do better?", W / 2, H - 100);
   ctx.font = "22px 'Nunito', system-ui, sans-serif";
   ctx.fillStyle = "#6b5f76";
-  ctx.fillText("doodlepop", W / 2, H - 55);
+  ctx.fillText("doodlepop", W / 2, H - 60);
 
   return canvas.toDataURL("image/png");
 }

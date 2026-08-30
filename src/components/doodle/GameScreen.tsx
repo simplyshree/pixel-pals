@@ -331,7 +331,7 @@ function Completion({
       </div>
 
       <p className="mt-4 font-display text-2xl text-primary">“{result.reaction}”</p>
-      <p className="text-sm text-muted-foreground">finished in {result.seconds} seconds</p>
+      <p className="text-sm text-muted-foreground">finished in {result.seconds} second{result.seconds === 1 ? "" : "s"}</p>
       {egg && <p className="animate-float-up mt-1 font-display text-sm">{egg}</p>}
 
       <div className="mt-6 space-y-2">

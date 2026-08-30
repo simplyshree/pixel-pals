@@ -3,7 +3,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { PixelCanvas } from "./PixelCanvas";
 import { Confetti } from "./Confetti";
 import { PALETTES, REACTIONS, randomFrom, slugify } from "@/lib/doodle/data";
-import { bumpStreak, getSound, saveDoodle, setSound, type Doodle } from "@/lib/doodle/storage";
+import { bumpStreak, getArtistName, getSound, saveDoodle, setSound, type Doodle } from "@/lib/doodle/storage";
 import { blip, chime } from "@/lib/doodle/sound";
 import { downloadDataUrl, makeShareCard } from "@/lib/doodle/render";
 
@@ -76,6 +76,7 @@ export function GameScreen({ prompt, challengedBy, onNewPrompt }: Props) {
       seconds,
       date: new Date().toISOString(),
       reaction,
+      author: getArtistName(),
     };
     setResult(d);
     bumpStreak();

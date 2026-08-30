@@ -1,7 +1,14 @@
 import { Link, createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { PROMPTS, dailyPrompt, randomFrom, streakMessage } from "@/lib/doodle/data";
-import { getStreak } from "@/lib/doodle/storage";
+import {
+  getArtistName,
+  getStreak,
+  loadGallery,
+  setArtistName,
+  type Doodle,
+} from "@/lib/doodle/storage";
+import { DoodleThumb } from "@/components/doodle/DoodleThumb";
 
 export const Route = createFileRoute("/")({
   head: () => ({

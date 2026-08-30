@@ -2,6 +2,7 @@ import { Link, createFileRoute } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { deleteDoodle, loadGallery, type Doodle } from "@/lib/doodle/storage";
 import { downloadDataUrl, makeShareCard } from "@/lib/doodle/render";
+import { DoodleThumb } from "@/components/doodle/DoodleThumb";
 
 export const Route = createFileRoute("/museum")({
   head: () => ({
@@ -16,31 +17,6 @@ export const Route = createFileRoute("/museum")({
   }),
   component: Museum,
 });
-
-function Thumb({ d }: { d: Doodle }) {
-  const cell = 100 / d.size;
-  return (
-    <div className="doodle-frame relative aspect-square w-full overflow-hidden bg-white">
-      <div className="relative h-full w-full">
-        {d.pixels.map((c, i) =>
-          c ? (
-            <span
-              key={i}
-              className="absolute"
-              style={{
-                background: c,
-                left: `${(i % d.size) * cell}%`,
-                top: `${Math.floor(i / d.size) * cell}%`,
-                width: `${cell}%`,
-                height: `${cell}%`,
-              }}
-            />
-          ) : null,
-        )}
-      </div>
-    </div>
-  );
-}
 
 function Museum() {
   const [items, setItems] = useState<Doodle[]>([]);
@@ -65,10 +41,10 @@ function Museum() {
         <div className="mt-6 grid grid-cols-2 gap-4 sm:grid-cols-3">
           {items.map((d) => (
             <div key={d.id} className="group">
-              <Thumb d={d} />
+              <DoodleThumb d={d} />
               <p className="mt-2 line-clamp-2 text-xs font-bold">{d.prompt}</p>
               <p className="text-[11px] text-muted-foreground">
-                {new Date(d.date).toLocaleDateString()} · {d.seconds}s
+                by {d.author ?? "anonymous artist"} · {d.seconds}s
               </p>
               <div className="mt-1 flex gap-2 text-[11px] underline">
                 <button onClick={() => downloadDataUrl(makeShareCard(d), `doodlepop-${d.id}.png`)}>download</button>

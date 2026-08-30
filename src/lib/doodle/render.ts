@@ -68,7 +68,8 @@ export function makeShareCard(d: Doodle): string {
 
   ctx.font = "26px 'Nunito', system-ui, sans-serif";
   ctx.fillStyle = "#6b5f76";
-  ctx.fillText(`made in ${d.seconds} second${d.seconds === 1 ? "" : "s"}`, W / 2, y + box + 135);
+  ctx.fillText(`by ${d.author ?? "anonymous artist"}`, W / 2, y + box + 135);
+  ctx.fillText(`made in ${d.seconds} second${d.seconds === 1 ? "" : "s"}`, W / 2, y + box + 172);
 
   ctx.font = "bold 30px 'Baloo 2', system-ui, sans-serif";
   ctx.fillStyle = "#e05780";

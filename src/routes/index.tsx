@@ -63,13 +63,12 @@ function Index() {
       <section className="mt-8">
         <p className="text-center text-sm text-muted-foreground">or cause chaos</p>
         <div className="mt-3 grid grid-cols-2 gap-3">
-          <Link
-            to="/play"
-            search={{ p: randomFrom(PROMPTS) }}
+          <button
+            onClick={() => navigate({ to: "/play", search: { p: randomFrom(PROMPTS) } })}
             className="chunky chunky-press bg-card px-3 py-4 text-center text-sm"
           >
             🎲 quick doodle
-          </Link>
+          </button>
           <Link to="/museum" className="chunky chunky-press bg-mint px-3 py-4 text-center text-sm">
             🖼️ tiny museum
           </Link>

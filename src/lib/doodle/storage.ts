@@ -6,11 +6,13 @@ export type Doodle = {
   seconds: number;
   date: string;
   reaction: string;
+  author?: string;
 };
 
 const GALLERY_KEY = "doodlepop.gallery";
 const STREAK_KEY = "doodlepop.streak";
 const SOUND_KEY = "doodlepop.sound";
+const NAME_KEY = "doodlepop.name";
 
 const isBrowser = () => typeof window !== "undefined";
 
@@ -32,6 +34,16 @@ export function saveDoodle(d: Doodle) {
 export function deleteDoodle(id: string) {
   if (!isBrowser()) return;
   localStorage.setItem(GALLERY_KEY, JSON.stringify(loadGallery().filter((d) => d.id !== id)));
+}
+
+export function getArtistName(): string {
+  if (!isBrowser()) return "anonymous artist";
+  return localStorage.getItem(NAME_KEY) || "anonymous artist";
+}
+
+export function setArtistName(name: string) {
+  if (!isBrowser()) return;
+  localStorage.setItem(NAME_KEY, name.trim().slice(0, 24) || "anonymous artist");
 }
 
 export function getSound(): boolean {

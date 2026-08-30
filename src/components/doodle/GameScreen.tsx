@@ -3,7 +3,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { PixelCanvas } from "./PixelCanvas";
 import { Confetti } from "./Confetti";
 import { PALETTES, REACTIONS, randomFrom, slugify } from "@/lib/doodle/data";
-import { bumpStreak, getSound, saveDoodle, setSound, type Doodle } from "@/lib/doodle/storage";
+import { bumpStreak, getArtistName, getSound, saveDoodle, setSound, type Doodle } from "@/lib/doodle/storage";
 import { blip, chime } from "@/lib/doodle/sound";
 import { downloadDataUrl, makeShareCard } from "@/lib/doodle/render";
 
@@ -76,6 +76,7 @@ export function GameScreen({ prompt, challengedBy, onNewPrompt }: Props) {
       seconds,
       date: new Date().toISOString(),
       reaction,
+      author: getArtistName(),
     };
     setResult(d);
     bumpStreak();
@@ -331,7 +332,7 @@ function Completion({
       </div>
 
       <p className="mt-4 font-display text-2xl text-primary">“{result.reaction}”</p>
-      <p className="text-sm text-muted-foreground">finished in {result.seconds} seconds</p>
+      <p className="text-sm text-muted-foreground">finished in {result.seconds} second{result.seconds === 1 ? "" : "s"}</p>
       {egg && <p className="animate-float-up mt-1 font-display text-sm">{egg}</p>}
 
       <div className="mt-6 space-y-2">

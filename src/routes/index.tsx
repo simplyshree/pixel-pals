@@ -30,9 +30,15 @@ export const Route = createFileRoute("/")({
 function Index() {
   const navigate = useNavigate();
   const [streak, setStreak] = useState(0);
+  const [items, setItems] = useState<Doodle[]>([]);
+  const [name, setName] = useState("anonymous artist");
   const daily = dailyPrompt();
 
-  useEffect(() => setStreak(getStreak()), []);
+  useEffect(() => {
+    setStreak(getStreak());
+    setItems(loadGallery());
+    setName(getArtistName());
+  }, []);
   const milestone = streakMessage(streak);
 
   return (
